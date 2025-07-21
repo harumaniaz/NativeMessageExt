@@ -1,12 +1,17 @@
 document.getElementById('sendButton').addEventListener('click', () => {
-  const message = { command: "sayHello" };
+  var port = chrome.runtime.connectNative('com.yourcompany.NativeMessageApp');
 
-  chrome.runtime.sendNativeMessage(
-    "com.yourcompany.NativeMessageApp", // ←ここはあなたのホスト名に置き換えて
-    message,
-    (response) => {
-      document.getElementById('response').innerText =
-        response ? JSON.stringify(response) : "No response";
-    }
-  );
+  port.onMessage.addListener(function (msg) {
+    console.log('Received: ' + msg);
+  });
+
+  port.onDisconnect.addListener(function () {
+    console.log('Disconnected');
+  });
+
+  try {
+    port.postMessage({text: 'Hello, World!'});
+  } catch (error) {
+    console.error('Error sending message:', error);
+  }
 });
