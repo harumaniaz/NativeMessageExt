@@ -1,7 +1,7 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.command === "launch") {
     chrome.runtime.sendNativeMessage(
-      "com.yourcompany.nma",
+      "com.my.nma",
       { command: "launch" },
       (response) => {
         if (chrome.runtime.lastError) {
