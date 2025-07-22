@@ -2,13 +2,28 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Send Native Message</title>
+    <title>Native Messaging</title>
+
+    <style>
+        #inputText {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #sendButton {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
-    <button id="sendButton">Send Message</button>
-    <p id="response"></p>
+    <input type="text" id="inputText" placeholder="input text here" />
+
+    <button id="sendButton">Send</button>
+
+    <div id="responseArea"></div>
+
     <script src="popup.js"></script>
 </body>
 

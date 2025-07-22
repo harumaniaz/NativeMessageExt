@@ -1,19 +1,16 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.command === "launch") {
+  if (message.action === "launch") {
     chrome.runtime.sendNativeMessage(
       "com.my.nma",
-      { command: "launch" },
+      { text: message.text },
       (response) => {
         if (chrome.runtime.lastError) {
-          console.error(chrome.runtime.lastError.message);
-          sendResponse({ reply: "Error: " + chrome.runtime.lastError.message });
+          sendResponse({ reply: "Native Error: " + chrome.runtime.lastError.message });
         } else {
-          sendResponse({ reply: response });
+          sendResponse({ reply: response.reply || JSON.stringify(response) });
         }
       }
     );
-
-    // Important: Keep the message channel open
-    return true;
+    return true; // 非同期で sendResponse を使うには必要
   }
 });
